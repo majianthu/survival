@@ -5,8 +5,6 @@ library(survsim)
 library(fastcox)
 
 # simulation
-c6a = c7a = c8a = c9a = c10a = 0
-c6c = c7c = c8c = c9c = c10c = 0
 n1 = 1000 # number of subjects
 sim.data <- simple.surv.sim(n=n1, foltime=100, 
                             dist.ev=c('weibull'), anc.ev=2, beta0.ev=1, 
@@ -31,18 +29,20 @@ betack = ck1$beta[,4]
 names(betack) = c("x1","x2","x3","x4","x5")
 
 # copula entropy
-c6a = c6a + copent(sim.data[,c(4,6)])
-c7a = c7a + copent(sim.data[,c(4,7)])
-c8a = c8a + copent(sim.data[,c(4,8)])
-c9a = c9a + copent(sim.data[,c(4,9)])
-c10a = c10a + copent(sim.data[,c(4,10)])
+c6a = c7a = c8a = c9a = c10a = 0
+c6c = c7c = c8c = c9c = c10c = 0
+c6a = copent(sim.data[,c(4,6)])
+c7a = copent(sim.data[,c(4,7)])
+c8a = copent(sim.data[,c(4,8)])
+c9a = copent(sim.data[,c(4,9)])
+c10a = copent(sim.data[,c(4,10)])
 # with censor mark
 sim.data[,2] = sim.data[,2] + 0.00000001 * runif(n1)
-c6c = c6c + copent(sim.data[,c(2,4,6)])
-c7c = c7c + copent(sim.data[,c(2,4,7)])
-c8c = c8c + copent(sim.data[,c(2,4,8)])
-c9c = c9c + copent(sim.data[,c(2,4,9)])
-c10c = c10c + copent(sim.data[,c(2,4,10)])
+c6c = copent(sim.data[,c(2,4,6)])
+c7c = copent(sim.data[,c(2,4,7)])
+c8c = copent(sim.data[,c(2,4,8)])
+c9c = copent(sim.data[,c(2,4,9)])
+c10c = copent(sim.data[,c(2,4,10)])
 
 c1 = c(c6a,c7a,c8a,c9a,c10a)
 names(c1) = c("x1","x2","x3","x4","x5")
